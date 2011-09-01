@@ -167,9 +167,9 @@
 		"uboot_addr=0xa0000000\0"				\
 		"uboot=u-boot.bin\0"			\
 		"kernel=uImage\0"				\
-		"rd_loadaddr=0x90D00000\0"	\
+		"rd_loadaddr=0x90C00000\0"	\
 		"nfsroot=/opt/eldk/arm\0"				\
-		"bootargs_base=setenv bootargs console=ttymxc0,115200 gpu_memory=16M\0"\
+		"bootargs_base=setenv bootargs console=ttymxc0,115200 video=mxcdi0fb:LVDS666 gpu_memory=16M\0"\
 		"bootargs_nfs=setenv bootargs ${bootargs} root=/dev/nfs " \
 			"ip=dhcp nfsroot=${serverip}:${nfsroot},v3,tcp\0"\
 		"bootcmd_net=run bootargs_base bootargs_nfs; "		\
@@ -181,12 +181,12 @@
 			"setenv filesize; saveenv\0"			\
 		"bootcmd=run bootcmd_SD \0"				\
 		"bootcmd_SD=run bootargs_base bootargs_android;"	\
-		     "mmc read 0 ${loadaddr} 0x800 2000;"		\
-		     "mmc read 0 ${rd_loadaddr} 0x3000 0x258;"		\
+		     "mmc read 0 ${loadaddr} 0x800 0x2000;"		\
+		     "mmc read 0 ${rd_loadaddr} 0x2800 0x258;"		\
 		     "bootm ${loadaddr} ${rd_loadaddr}\0"		\
 		"bootargs_android=setenv bootargs ${bootargs}  "	\
 		     "androidboot.console=ttymxc0 init=/init "		\
-		     "di1_primary calibration\0"			\
+		     " \0"			\
 		"bootcmd_android_recovery=run bootargs_base"		\
 		     " bootargs_android_recovery;"			\
 		     "mmc read 0 ${loadaddr} 0x800 0x2000;bootm\0"	\
@@ -348,7 +348,7 @@
 #undef CONFIG_JFFS2_CMDLINE
 #define CONFIG_JFFS2_DEV	"nand0"
 
-#ifdef CONFIG_SPLASH_SCREEN
+/*#ifdef CONFIG_SPLASH_SCREEN*/
 	/*
 	 * Framebuffer and LCD
 	 */
@@ -365,5 +365,5 @@
 	#define CONFIG_FB_BASE	(TEXT_BASE + 0x300000)
 	#define CONFIG_SPLASH_SCREEN_ALIGN
 	#define CONFIG_SYS_WHITE_ON_BLACK
-#endif
+/*#endif*/
 #endif				/* __CONFIG_H */
